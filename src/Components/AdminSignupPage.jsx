@@ -10,23 +10,22 @@ const AdminSignupPage = () => {
     confirmAdminPassword: "",
   });
 
-  const [loading, setLoading] = useState(false); // Loader state
-  const [fetchData, setFetchData] = useState(false); // State to trigger data fetch
-  const [fetchedAdminData, setFetchedAdminData] = useState(null); // Store fetched data
+  const [loading, setLoading] = useState(false); 
+  const [fetchData, setFetchData] = useState(false); 
+  const [fetchedAdminData, setFetchedAdminData] = useState(null); 
 
-  // Initialize validationErrors with default messages
   const [validationErrors, setValidationErrors] = useState({
     contactError: "Contact number is required and should start with 6, 7, 8, or 9.",
     passwordError:
       "Password must be between 8 to 20 characters, contain at least one uppercase letter, one number, and one special character.",
   });
 
-  // Handle input changes
+  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Validate form fields
+  
   const validateForm = () => {
     const {
       adminName,
@@ -52,12 +51,11 @@ const AdminSignupPage = () => {
       errors.contactError = "Please enter a valid email address.";
     }
 
-    const contactRegex = /^[6-9][0-9]{9}$/; // Contact number should start with 6, 7, 8, or 9 and have 10 digits
+    const contactRegex = /^[6-9][0-9]{9}$/; 
     if (!contactRegex.test(adminContact)) {
       errors.contactError = "Contact number must be a valid 10-digit number starting with 6, 7, 8, or 9";
     }
 
-    // Password validation using regex
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
     if (!passwordRegex.test(adminPassword)) {
       errors.passwordError =
@@ -73,7 +71,6 @@ const AdminSignupPage = () => {
     return !errors.contactError && !errors.passwordError;
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -81,11 +78,11 @@ const AdminSignupPage = () => {
       return;
     }
 
-    setLoading(true); // Show loader
+    setLoading(true); 
     try {
-      console.log("Submitting Form Data:", formData); // Debug log before submission
+      console.log("Submitting Form Data:", formData); 
       const response = await axios.post(
-        "http://192.168.188.251:8080/admin", // Updated endpoint for admin
+        "http://192.168.188.251:8080/admin", 
         formData,
         {
           headers: {
@@ -95,29 +92,29 @@ const AdminSignupPage = () => {
       );
       alert("Admin signup successful!");
       console.log("Server Response:", response.data);
-      setFetchData(true); // Trigger fetching data after successful submission
+      setFetchData(true); 
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || "Signup failed. Please try again.";
       console.error("Error during signup:", error);
       alert(errorMessage);
     } finally {
-      setLoading(false); // Hide loader
+      setLoading(false); 
     }
   };
 
-  // Fetch data after successful signup
+  
   useEffect(() => {
     if (fetchData) {
       console.log("Fetching admin data...");
-      fetch("http://192.168.188.251:8080/admin/findAllAdmin") // Updated API endpoint for fetching admin data
+      fetch("http://192.168.188.251:8080/admin/findAllAdmin")
         .then((response) => response.json())
         .then((data) => {
           console.log("Fetched Data:", data);
           setFetchedAdminData(data);
         })
         .catch((err) => console.error("Error fetching data:", err))
-        .finally(() => setFetchData(false)); // Reset fetchData state
+        .finally(() => setFetchData(false)); 
     }
   }, [fetchData]);
 

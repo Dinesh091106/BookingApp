@@ -16,11 +16,9 @@ const App = () => {
         <Link to="/admin/signup">Admin Signup</Link>
       </nav>
       <Routes>
-        {/* User Routes */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
 
-        {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLoginPage />} />
         <Route path="/admin/signup" element={<AdminSignupPage />} />
       </Routes>
