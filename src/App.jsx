@@ -4,6 +4,7 @@ import LoginPage from "./Components/LoginPage";
 import AdminSignupPage from "./Components/AdminSignupPage";
 import AdminLoginPage from "./Components/AdminLoginPage";
 import SignupPage from "./Components/SignUpPage";
+import AdminHome from "./Components/AdminHome";
 import './index.css'
 import './Signup.css'
 const App = () => {
